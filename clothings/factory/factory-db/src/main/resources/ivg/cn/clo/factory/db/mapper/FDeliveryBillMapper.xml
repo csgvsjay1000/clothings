@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ivg.cn.clo.factory.db.mapper.FDeliveryBillMapper" >
+  <resultMap id="BaseResultMap" type="ivg.cn.clo.factory.db.entify.FDeliveryBill" >
+    <id column="fid" property="fid" jdbcType="BIGINT" />
+    <result column="num" property="num" jdbcType="VARCHAR" />
+    <result column="upstream_num" property="upstreamNum" jdbcType="VARCHAR" />
+  </resultMap>
+
+  
+  <select id="selectByPage" resultMap="BaseResultMap">
+<!--  	select * from f_delivery_bill where create_date &gt;= '2019-01-20 10:16:18' and create_date &lt;= '2019-04-20 10:16:18'
+ --> 	
+ select * from f_delivery_bill where create_date between '2019-01-01 14:28:24.52' and '2019-07-01 14:28:24.52'
+  </select>
+
+
+</mapper>

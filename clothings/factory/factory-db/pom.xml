@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>ivg.cn</groupId>
+    <artifactId>factory</artifactId>
+    <version>1.0.0</version>
+  </parent>
+  <artifactId>factory-db</artifactId>
+  <name>factory-db</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+  	
+	
+	<!-- sharding-jdbc -->
+  	<dependency>
+	    <groupId>io.shardingsphere</groupId>
+	    <artifactId>sharding-jdbc-core</artifactId>
+	</dependency>
+	
+	<!-- mysql -->
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<scope>runtime</scope>
+	</dependency>
+	<dependency>
+		<groupId>tk.mybatis</groupId>
+		<artifactId>mapper</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>tk.mybatis</groupId>
+		<artifactId>mapper-spring-boot-starter</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>druid</artifactId>
+	</dependency>
+	
+	<dependency>
+        <groupId>cn.ivg</groupId>
+        <artifactId>vesta-service</artifactId>
+        <version>1.0</version>
+        <scope>system</scope>
+        <systemPath>${basedir}/src/genId/vesta-service-0.0.1.jar</systemPath>
+    </dependency>
+    <dependency>
+        <groupId>cn.ivg</groupId>
+        <artifactId>vesta-intf</artifactId>
+        <version>1.0</version>
+        <scope>system</scope>
+        <systemPath>${basedir}/src/genId/vesta-intf-0.0.1.jar</systemPath>
+    </dependency>
+    
+    <!-- dubbo -->
+    <dependency>
+	    <groupId>com.alibaba.boot</groupId>
+	    <artifactId>dubbo-spring-boot-starter</artifactId>
+	</dependency>
+    
+    <!-- es -->
+	<dependency>
+	    <groupId>org.elasticsearch.client</groupId>
+	    <artifactId>transport</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>org.elasticsearch</groupId>
+	    <artifactId>elasticsearch</artifactId>
+	</dependency>
+	
+	<!-- log4j -->
+	 <dependency>
+         <groupId>org.apache.logging.log4j</groupId>
+         <artifactId>log4j-core</artifactId>
+     </dependency>
+     <dependency>
+         <groupId>org.apache.logging.log4j</groupId>
+         <artifactId>log4j-api</artifactId>
+     </dependency>
+	
+	<!-- json -->
+	<dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>fastjson</artifactId>
+	    <version>1.2.57</version>
+	</dependency>
+	
+	<!-- api -->
+	<dependency>
+		<groupId>ivg.cn</groupId>
+	    <artifactId>factory-api</artifactId>
+		<version>${parent.version}</version>
+	</dependency>
+    
+  </dependencies>
+</project>
