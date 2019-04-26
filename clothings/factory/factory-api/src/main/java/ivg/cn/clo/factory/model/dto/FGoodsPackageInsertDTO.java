@@ -1,14 +1,16 @@
 package ivg.cn.clo.factory.model.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
 /** 装箱DTO */
+@SuppressWarnings("serial")
 @Getter 
 @Setter
-public class FGoodsPackageInsertDTO {
+public class FGoodsPackageInsertDTO implements Serializable{
 
 	private String fromLocationNum;  // 发货方，一般为工厂
 
@@ -23,6 +25,8 @@ public class FGoodsPackageInsertDTO {
     private String mixtureRatioKey;  // 配比key
 
     private String mixtureRatioValue;
+    
+    private String creater;  // 操作人
     
     List<FPackDetail> packs;  // 箱详情
 
