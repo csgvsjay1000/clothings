@@ -2,9 +2,16 @@ package ivg.cn.clo.factory.db;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.concurrent.ExecutionException;
 
+import org.elasticsearch.action.admin.indices.delete.DeleteIndexAction;
+import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequestBuilder;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.get.GetRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.TransportAddress;
@@ -58,17 +65,35 @@ public class ESTest {
 	@Test
 	public void searchAllPack() {
 		
-		FGoodsPackage goodsPackage = new FGoodsPackage();
-		goodsPackage.setFid(1L);
-		goodsPackage.setNum("ZX190");
-		
-		SearchResponse response = client.prepareSearch("fgoodspackage")
-				.setTypes("pack")
-				.setQuery(QueryBuilders.matchAllQuery())
+		SearchResponse response = client.prepareSearch("epc")
+				.setTypes("epctype")
+				.setQuery(QueryBuilders.matchQuery("barcode", "Y92241209530"))
+				.setFrom(0)
+				.setSize(10)
 				.get();
 		
 		System.out.println(response.toString());
 	}
+	
+	@Test
+	public void testClear() throws InterruptedException, ExecutionException {
+		
+		DeleteIndexRequestBuilder builder = new DeleteIndexRequestBuilder(client, DeleteIndexAction.INSTANCE, "epc");
+		AcknowledgedResponse response = builder.execute().get();
+		System.out.println(response.isAcknowledged());
+	}
+	
+	@Test
+	public void testTypeCount() {
+		
+		
+		
+		SearchRequestBuilder builder = client.prepareSearch("epc")
+				.setTypes("epctype");
+		
+//		System.out.println(response.toString());
+	}
+	
 	
 	
 }

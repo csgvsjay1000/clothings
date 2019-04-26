@@ -36,9 +36,6 @@ public class DBTimeRangeAlgorithm implements RangeShardingAlgorithm<Date>{
 		Range<Date> shardRange = shardingValue.getValueRange();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-		System.out.println(
-				"sharding value : "+format.format(shardRange.lowerEndpoint())+" --- " + format.format(shardRange.upperEndpoint()));
-		
 		for (String dbName : availableTargetNames) {
 			
 			// 通过缓存获取范围
@@ -58,8 +55,6 @@ public class DBTimeRangeAlgorithm implements RangeShardingAlgorithm<Date>{
 			
 			// 计算是否在范围内
 			try {
-				System.out.println(
-						"range value : "+format.format(range.lowerEndpoint())+" --- " + format.format(range.upperEndpoint()));
 				// 小的 小于 大的
 				int lowerCmp = shardRange.lowerEndpoint().compareTo(range.upperEndpoint());
 				
@@ -73,9 +68,6 @@ public class DBTimeRangeAlgorithm implements RangeShardingAlgorithm<Date>{
 					continue;
 				}
 				target.add(dbName);
-//				if (uperCmp >=0 || lowerCmp>=0) {
-//					target.add(dbName);
-//				}
 				
 			} catch (Exception e) {
 				e.printStackTrace();

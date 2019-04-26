@@ -71,6 +71,10 @@
 	    <groupId>org.elasticsearch</groupId>
 	    <artifactId>elasticsearch</artifactId>
 	</dependency>
+	<dependency>
+	    <groupId>org.elasticsearch.plugin</groupId>
+		<artifactId>transport-netty4-client</artifactId>
+	</dependency>
 	
 	<!-- log4j -->
 	 <dependency>
@@ -93,6 +97,13 @@
 	<dependency>
 		<groupId>ivg.cn</groupId>
 	    <artifactId>factory-api</artifactId>
+		<version>${parent.version}</version>
+	</dependency>
+	
+	<!-- kafka -->
+	<dependency>
+		<groupId>ivg.cn</groupId>
+	    <artifactId>kafka</artifactId>
 		<version>${parent.version}</version>
 	</dependency>
     
