@@ -17,6 +17,7 @@
     <java.source.version>1.8</java.source.version>
     <java.target.version>1.8</java.target.version>
     <java.encoding>UTF-8</java.encoding>
+    <es.version>6.7.1</es.version>
   </properties>
 
   <dependencies>
@@ -54,6 +55,11 @@
 			    <groupId>org.elasticsearch</groupId>
 			    <artifactId>elasticsearch</artifactId>
 			    <version>6.7.1</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.elasticsearch.plugin</groupId>
+				<artifactId>transport-netty4-client</artifactId>
+				<version>${es.version}</version>
 			</dependency>
 			
 			<!-- log4j -->
