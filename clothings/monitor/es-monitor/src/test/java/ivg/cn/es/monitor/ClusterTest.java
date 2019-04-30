@@ -12,6 +12,8 @@ import org.elasticsearch.action.admin.cluster.node.info.NodesInfoRequest;
 import org.elasticsearch.action.admin.cluster.node.info.NodesInfoResponse;
 import org.elasticsearch.action.admin.cluster.node.stats.NodesStatsRequest;
 import org.elasticsearch.action.admin.cluster.node.stats.NodesStatsResponse;
+import org.elasticsearch.action.admin.cluster.tasks.PendingClusterTasksRequest;
+import org.elasticsearch.action.admin.cluster.tasks.PendingClusterTasksResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
 import org.elasticsearch.action.admin.indices.stats.IndicesStatsRequest;
 import org.elasticsearch.action.admin.indices.stats.IndicesStatsResponse;
@@ -64,6 +66,8 @@ public class ClusterTest {
 	public void testNodesInfo() {
 		
 		NodesInfoRequest request = new NodesInfoRequest();
+		request.clear();
+		request.threadPool(true);
 		NodesInfoResponse response = clusterAdminClient.nodesInfo(request).actionGet();
 		System.out.println(response);
 	}
@@ -72,7 +76,14 @@ public class ClusterTest {
 	public void testNodesStats() {
 		
 		NodesStatsRequest request = new NodesStatsRequest();
-		request.jvm(true);
+		request.clear();
+		request.threadPool(true);
+//		request.indices(true);
+//		request.jvm(true);
+//		request.os(true);
+//		request.process(true);
+//		request.fs(true);
+//		request.transport(true);
 		NodesStatsResponse response = clusterAdminClient.nodesStats(request).actionGet();
 		System.out.println(response);
 	}
@@ -81,12 +92,20 @@ public class ClusterTest {
 	public void testIndexStats() {
 		
 		IndicesStatsRequest request = new IndicesStatsRequest();
-//		request.clear();
+		request.clear();
 //		request.indices("epc");
 //		request.types("epctype");
-//		request.indexing(true);
+		request.indexing(true);
 		IndicesStatsResponse response = indicesAdminClient.stats(request).actionGet();
 		
+		System.out.println(response);
+	}
+	
+	@Test
+	public void testPendingTask() {
+		
+		PendingClusterTasksRequest request = new PendingClusterTasksRequest();
+		PendingClusterTasksResponse response = clusterAdminClient.pendingClusterTasks(request).actionGet();
 		System.out.println(response);
 	}
 	
