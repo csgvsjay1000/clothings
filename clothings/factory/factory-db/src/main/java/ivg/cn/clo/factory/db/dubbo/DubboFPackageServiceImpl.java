@@ -55,6 +55,7 @@ public class DubboFPackageServiceImpl implements FPackageService{
 		// 1、插入箱表
 		// 2、插入箱详情表
 		// 3、插入箱EPC表
+		// 3、插入本地消息表
 		// 采用分布式事物
 		// 4、更新tag服务中，EPC状态,追加EPC生命周期
 		// 采用异步方式
@@ -93,7 +94,9 @@ public class DubboFPackageServiceImpl implements FPackageService{
 		}
 		goodsPackage.setGoodsQty(total);
 		
-		
+		// 1、插入箱表
+		// 2、插入箱详情表
+		// 3、插入箱EPC表
 		packageMapper.insert(goodsPackage);
 		packageDetailMapper.batchInsert(details);
 		packageItemMapper.batchInsert(epcItems);

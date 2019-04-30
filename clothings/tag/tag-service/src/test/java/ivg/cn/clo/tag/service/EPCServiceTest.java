@@ -29,9 +29,9 @@ public class EPCServiceTest {
 	@Test
 	public void testInsert() {
 		
-		int thread = 50;
+		int thread = 1;
 		int loop = 2;
-		int perEpc = 50;
+		int perEpc = 2;
 		
 		ConcurrentTestTools tools = new ConcurrentTestTools(thread, new Runnable() {
 			

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>ivg.cn</groupId>
+    <artifactId>monitor</artifactId>
+    <version>1.0.0</version>
+  </parent>
+  <artifactId>es-monitor</artifactId>
+  <name>es-monitor</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+  	<!-- es -->
+	<dependency>
+	    <groupId>org.elasticsearch.client</groupId>
+	    <artifactId>transport</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>org.elasticsearch</groupId>
+	    <artifactId>elasticsearch</artifactId>
+	</dependency>
+	<dependency>
+	    <groupId>org.elasticsearch.plugin</groupId>
+		<artifactId>transport-netty4-client</artifactId>
+	</dependency>
+	
+	<!-- log4j -->
+	 <dependency>
+         <groupId>org.apache.logging.log4j</groupId>
+         <artifactId>log4j-core</artifactId>
+     </dependency>
+     <dependency>
+         <groupId>org.apache.logging.log4j</groupId>
+         <artifactId>log4j-api</artifactId>
+     </dependency>
+     
+     <!-- vesta -->
+     <dependency>
+        <groupId>cn.ivg</groupId>
+        <artifactId>vesta-service</artifactId>
+        <version>1.0</version>
+        <scope>system</scope>
+        <systemPath>${basedir}/src/genId/vesta-service-0.0.1.jar</systemPath>
+    </dependency>
+    <dependency>
+        <groupId>cn.ivg</groupId>
+        <artifactId>vesta-intf</artifactId>
+        <version>1.0</version>
+        <scope>system</scope>
+        <systemPath>${basedir}/src/genId/vesta-intf-0.0.1.jar</systemPath>
+    </dependency>
+    
+    <!-- fastjson -->
+    <dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>fastjson</artifactId>
+	</dependency>
+	
+	<!-- slf4j -->
+	<dependency>
+    	<groupId>org.slf4j</groupId>
+    	<artifactId>slf4j-api</artifactId>
+    </dependency>
+	
+  </dependencies>
+</project>

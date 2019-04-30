@@ -1,30 +1,29 @@
-## 服务部署
+## ElasticSearch知识整理
 
-### 服务列表 ###
+### ES的安装与启动 ###
 
 ***1、基础服务***
 
-- elasticsearch ( 搜索引擎 )
-- zookeeper ( kafka、dubbo、分布式锁 )
-- redis ( 缓存服务 )
-- kafka ( 消息服务器 )
+- 安装并配置java环境
+- 下载 并解压 elasticsearch-6.2.4.tar.gz
+- es 不能使用root账户启动, 所以解压之后修改es安装目录所属账户 chown -R es_user:es_user .
+- cd  elasticsearch-6.2.4/bin
+- ./elasticsearch 启动
+- ./elasticsearch -d  后台启动
+- kill pid  停止es服务
 
-***2、应用服务***
+***2、重要配置***
 
-- tag ( 标签服务：绑定、解绑、EPC查询、库存查询 )
-- factory ( 工厂服务 : 工厂发货/收货)
+- network.host 
+	es默认绑定127.0.0.1回环地址，通常需要改成 192.168.5.131
+- cluster.name 集群名字,如 clo-prod  (配置了集群名字后，客户端连接时也要设置集群名字)
+- node.name 节点名字 clo-prod_1
 - warehouse ( 仓库服务 : 仓库发货/收货/横调/退仓)
 - warehouse-inventory ( 仓库盘点服务 )
 - shop ( 门店服务 : 门店发货/收货/横调/退仓)
 - shop-inventory ( 门店盘点服务 )
 
-***3、基础服务端口规划(12500~12599)***
-
-| 服务        | IP   | 端口   |
-| --------   | -----: |-----: |
-| elasticsearch |   | 12500~12509(http-port)/n 12510~12519(tcp-port) |
-
-***4、应用服务端口规划(12100~12199)***
+***1、应用服务端口规划(10100~10119)***
 
 | 服务        | IP   | 端口   |
 | --------   | -----: |-----: |

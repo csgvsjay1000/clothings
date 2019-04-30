@@ -15,11 +15,7 @@
 		<javaModelGenerator targetPackage="ivg.cn.clo.factory.model.entity"
 			targetProject="factory-api/src/main/java" />
 
-		<table tableName="f_delivery_bill" domainObjectName="FDeliveryBill"
-			enableCountByExample="false" enableUpdateByExample="false"
-			enableDeleteByExample="false" enableSelectByExample="false"
-			selectByExampleQueryId="false"></table>
-		<table tableName="f_delivery_bill_trace" domainObjectName="FDeliveryBillTrace"
+		<table tableName="b_local_message" domainObjectName="BLocalMessage"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false"></table>
