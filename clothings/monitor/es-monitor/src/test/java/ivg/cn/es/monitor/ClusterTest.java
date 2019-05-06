@@ -77,9 +77,9 @@ public class ClusterTest {
 		
 		NodesStatsRequest request = new NodesStatsRequest();
 		request.clear();
-		request.threadPool(true);
+//		request.threadPool(true);
 //		request.indices(true);
-//		request.jvm(true);
+		request.jvm(true);
 //		request.os(true);
 //		request.process(true);
 //		request.fs(true);
