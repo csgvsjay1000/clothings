@@ -1,4 +1,12 @@
 
+
+1、熟悉java，多线程，NIO网络编程，java虚拟机；
+2、熟悉ssm框架，netty，shardjdbc，elasticsearch，springboot，redis，dubbo，Kafka，sentinel；
+3、精读过mycat、greys以及TTalk(c++)源码；
+4、有数据库分库分表，分布式服务设计经验。有10亿级别数据存储分析经验；
+5、熟悉系统监控开发；
+6、对大数据和搜索引擎开发有浓厚兴趣；
+
 2018-06 ~ 2019-2 RFID服饰供应链
 
     RFID服饰供应链对公司工厂、仓库、门店的各收发货环节进行管理。实现工厂装箱送审、仓库收发、
