@@ -12,6 +12,8 @@ import org.elasticsearch.action.admin.cluster.node.info.NodesInfoRequest;
 import org.elasticsearch.action.admin.cluster.node.info.NodesInfoResponse;
 import org.elasticsearch.action.admin.cluster.node.stats.NodesStatsRequest;
 import org.elasticsearch.action.admin.cluster.node.stats.NodesStatsResponse;
+import org.elasticsearch.action.admin.cluster.state.ClusterStateRequest;
+import org.elasticsearch.action.admin.cluster.state.ClusterStateResponse;
 import org.elasticsearch.action.admin.cluster.tasks.PendingClusterTasksRequest;
 import org.elasticsearch.action.admin.cluster.tasks.PendingClusterTasksResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
@@ -58,6 +60,14 @@ public class ClusterTest {
 	public void testHealth() {
 		ClusterHealthRequest request = new ClusterHealthRequest();
 		ClusterHealthResponse response = clusterAdminClient.health(request).actionGet();
+		
+		System.out.println(response);
+	}
+	
+	@Test
+	public void testClusterState() {
+		ClusterStateRequest request = new ClusterStateRequest();
+		ClusterStateResponse response = clusterAdminClient.state(request).actionGet();
 		
 		System.out.println(response);
 	}
