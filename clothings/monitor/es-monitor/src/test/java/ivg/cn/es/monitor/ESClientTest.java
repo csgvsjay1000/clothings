@@ -121,12 +121,12 @@ public class ESClientTest {
 	@Test
 	public void testPut() {
 		
-		ConcurrentTestTools tools = new ConcurrentTestTools(50, new Runnable() {
+		ConcurrentTestTools tools = new ConcurrentTestTools(1, new Runnable() {
 			
 			@Override
 			public void run() {
 				BulkRequestBuilder builder = client.prepareBulk();
-				for (int i = 0; i < 1000; i++) {
+				for (int i = 0; i < 100; i++) {
 					for (BTag bTag : getTags(100)) {
 						builder.add(client.prepareIndex("epc", "epctype", String.valueOf(bTag.getFid()))
 								.setSource(JSON.toJSONString(bTag), XContentType.JSON));

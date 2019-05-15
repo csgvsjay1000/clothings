@@ -63,7 +63,7 @@ public class ESSearchClient {
 	public void testAggCount() throws InterruptedException, ExecutionException {
 		
 		SearchResponse response = client.prepareSearch("epc")
-				.setQuery(QueryBuilders.matchPhraseQuery("itemNumber", "l91242150"))  // 条件查询
+//				.setQuery(QueryBuilders.matchPhraseQuery("itemNumber", "l91242150"))  // 条件查询
 			.addAggregation(AggregationBuilders.terms("epc_count").field("barcode"))  // 按款分组
 			.setSize(0)
 			.execute().get();
