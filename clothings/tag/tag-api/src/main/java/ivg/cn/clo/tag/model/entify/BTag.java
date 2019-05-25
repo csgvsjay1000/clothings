@@ -1,8 +1,9 @@
 package ivg.cn.clo.tag.model.entify;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class BTag {
+public class BTag implements Serializable{
     private Long fid;
 
     private String epc;

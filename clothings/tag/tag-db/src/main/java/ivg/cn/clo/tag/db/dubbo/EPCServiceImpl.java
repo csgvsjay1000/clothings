@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,11 +21,14 @@ import ivg.cn.clo.tag.model.dto.EPCBindDTO;
 import ivg.cn.clo.tag.model.dto.GoodDetail;
 import ivg.cn.clo.tag.model.entify.BTag;
 import ivg.cn.clo.tag.model.entify.BTagFlow;
+import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.entity.Example.Criteria;
 
 @Service
 @com.alibaba.dubbo.config.annotation.Service(retries=0,timeout=6000)
 public class EPCServiceImpl implements EPCService{
 
+	
 	@Autowired
 	IdService idService;
 
@@ -62,6 +66,7 @@ public class EPCServiceImpl implements EPCService{
 				tag.setColor(goodDetail.getColor());
 				tag.setItemNumber(goodDetail.getItemNumber());
 				tag.setCreateDate(date);
+				tag.setFstatus(EPC_BIND);
 				bTags.add(tag);
 				
 				// 组装标签跟踪数据
@@ -78,9 +83,48 @@ public class EPCServiceImpl implements EPCService{
 
 //		throw new RuntimeException("测试事物回滚");
 		
-		epcEsService.put(bTags);
+//		epcEsService.put(bTags);
 		
 		return DreamResponse.createOKResponse();
 	}
+	
+	public DreamResponse<BTag> selectEpc(EPCBindDTO epcBindDTO) {
+		
+		Example example = new Example(BTag.class);
+		example.selectProperties("epc","fstatus");
+//		Criteria criteria = example.createCriteria();
+		
+		RowBounds rowBounds = new RowBounds(6*200, 500);
+		
+		List<BTag> tags = tagMapper.selectByExampleAndRowBounds(example, rowBounds);
+		
+		 DreamResponse<BTag> response = DreamResponse.createOKResponse();
+		 response.setData(tags);
+		
+		return response;
+	}
+	
+	public DreamResponse<Integer> batchUpdateEpc(List<String> epcs) {
+		
+		Example example = new Example(BTag.class);
+		Criteria criteria = example.createCriteria();
+		criteria.andIn("epc", epcs);
+		
+		BTag tag = new BTag();
+		tag.setFstatus(EPC_BIND);
+		
+		Integer updateCount = tagMapper.updateByExampleSelective(tag, example);
+		
+		 DreamResponse<Integer> response = DreamResponse.createOKResponse();
+		 response.setObjData(updateCount);
+		 
+		 example = new Example(BTag.class);
+		 criteria = example.createCriteria();
+		 criteria.andEqualTo("fstatus", EPC_BIND);
+		int count = tagMapper.selectCountByExample(example);
+		response.setObjData(count);
+		return response;
+	}
+	
 
 }

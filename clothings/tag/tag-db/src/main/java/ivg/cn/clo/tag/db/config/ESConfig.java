@@ -17,7 +17,7 @@ public class ESConfig {
 	@Bean
 	public TransportClient create() throws UnknownHostException {
 		return new PreBuiltTransportClient(Settings.EMPTY)
-				.addTransportAddress(new TransportAddress(InetAddress.getByName("192.168.5.131"), 9300));
+				.addTransportAddress(new TransportAddress(InetAddress.getByName("192.168.5.131"), 12510));
 	}
 	
 }

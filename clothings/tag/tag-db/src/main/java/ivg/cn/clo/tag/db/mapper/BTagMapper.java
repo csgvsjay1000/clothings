@@ -6,6 +6,6 @@ import ivg.cn.clo.tag.model.entify.BTag;
 import tk.mybatis.mapper.common.MySqlMapper;
 
 @Mapper
-public interface BTagMapper extends MySqlMapper<BTag>{
+public interface BTagMapper extends MySqlMapper<BTag>, tk.mybatis.mapper.common.Mapper<BTag>{
 
 }
