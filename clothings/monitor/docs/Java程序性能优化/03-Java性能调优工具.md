@@ -5,6 +5,10 @@
 - vmstat
 - iostat
 - pidstat
+- jstack
+- jinfo
+- jhat
+
 
 ## top命令
 
