@@ -15,9 +15,8 @@
 
 服务导出的入口方法是 ServiceBean 的 onApplicationEvent, onApplicationEvent是事件响应方法，该方法会收到 Spring 上下文刷新事件后，执行服务导出逻辑。<font color=#FF0000 >方法代码如下</font>:
 
-```java
 	
-@Override 
+	@Override 
 	public void <font color=#FF0000 >onApplicationEvent</font>(ContextRefreshedEvent event) {
 	    if (isDelay() && !isExported() && !isUnexported()) {
 	        if (logger.isInfoEnabled()) {
@@ -27,4 +26,3 @@
 	    }
 	}
 	
-```
