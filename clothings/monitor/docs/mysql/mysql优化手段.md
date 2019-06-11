@@ -36,6 +36,8 @@
 ## MySQL配置详解
 
 - innodb_flush_log_at_trx_commit:重做日志刷盘策略，该参数默认值为1、即事物提交必须调用fsync。
+- binlog\_cache\_size: 二进制日志缓冲大小，默认为32K,基于会话的，可以通过查看binlog\_cache\_use和binlog\_cache\_disk\_use来判断size设置是否合适。
+- innodb\_data\_file\_path进行设置，可以设置多个表空间文件。可以将多个文件映射到不同的磁盘上，可以提高数据库性能。
 
 
 
