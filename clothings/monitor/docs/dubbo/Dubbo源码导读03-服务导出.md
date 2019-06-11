@@ -13,17 +13,51 @@
 
 ## 2. 源码分析
 
-服务导出的入口方法是 ServiceBean 的 onApplicationEvent, onApplicationEvent是事件响应方法，该方法会收到 Spring 上下文刷新事件后，执行服务导出逻辑。<font color=#FF0000 >方法代码如下</font>:
+服务导出的入口方法是 ServiceBean 的 onApplicationEvent, onApplicationEvent是事件响应方法，该方法会收到 Spring 上下文刷新事件后，执行服务导出逻辑。方法代码如下:
 
 ```java
 
-@Override 
-public void onApplicationEvent(ContextRefreshedEvent event) {
-    if (isDelay() && !isExported() && !isUnexported()) {
-        if (logger.isInfoEnabled()) {
-            logger.info("The service ready on spring started. service: " + getInterface());
+	@Override 
+	public void onApplicationEvent(ContextRefreshedEvent event) {
+	    if (isDelay() && !isExported() && !isUnexported()) {
+	        if (logger.isInfoEnabled()) {
+	            logger.info("The service ready on spring started. service: " + getInterface());
+	        }
+	        export();
+	    }
+	}
+
+```
+
+### 2.1 前置工作
+
+前置工作主要包括两部分，分别是配置检查和URL装配。Dubbo 会检查用户的配置是否合理，或为用户补充缺省配置。配置检查完成后，根据这些配置组装URL。接下来我们先分析配置检查部分源码。
+
+```java
+
+	public synchronized void export() {
+        if (provider != null) {
+            if (export == null) {
+                export = provider.getExport();
+            }
+            if (delay == null) {
+                delay = provider.getDelay();
+            }
         }
-        export();
+        if (export != null && !export) {
+            return;
+        }
+
+        if (delay != null && delay > 0) {
+            delayExportExecutor.schedule(new Runnable() {
+                @Override
+                public void run() {
+                    doExport();
+                }
+            }, delay, TimeUnit.MILLISECONDS);
+        } else {
+            doExport();
+        }
     }
-}
+
 ```
