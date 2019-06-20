@@ -37,6 +37,7 @@
 
 	public synchronized void export() {
         if (provider != null) {
+			// 获取 export 和 delay 的配置
             if (export == null) {
                 export = provider.getExport();
             }
@@ -45,9 +46,11 @@
             }
         }
         if (export != null && !export) {
+			// 如果不导出，则返回
             return;
         }
-
+		
+		// 如果 delay > 0 则延时导出服务
         if (delay != null && delay > 0) {
             delayExportExecutor.schedule(new Runnable() {
                 @Override
@@ -56,8 +59,117 @@
                 }
             }, delay, TimeUnit.MILLISECONDS);
         } else {
+			// 立即导出
             doExport();
         }
+    }
+
+```
+
+export()方法对两个配置项进行了检查, export和delay。分别是是否导出，和延时导出，并执行不同的动作。下面我们继续分析源码，接下来分析 doExport();
+
+```java
+
+	protected synchronized void doExport() {
+        if (unexported) {
+            throw new IllegalStateException("Already unexported!");
+        }
+        if (exported) {
+            return;
+        }
+        exported = true;
+        if (interfaceName == null || interfaceName.length() == 0) {
+            throw new IllegalStateException("<dubbo:service interface=\"\" /> interface not allow null!");
+        }
+        checkDefault();
+        if (provider != null) {
+            if (application == null) {
+                application = provider.getApplication();
+            }
+            if (module == null) {
+                module = provider.getModule();
+            }
+            if (registries == null) {
+                registries = provider.getRegistries();
+            }
+            if (monitor == null) {
+                monitor = provider.getMonitor();
+            }
+            if (protocols == null) {
+                protocols = provider.getProtocols();
+            }
+        }
+        if (module != null) {
+            if (registries == null) {
+                registries = module.getRegistries();
+            }
+            if (monitor == null) {
+                monitor = module.getMonitor();
+            }
+        }
+        if (application != null) {
+            if (registries == null) {
+                registries = application.getRegistries();
+            }
+            if (monitor == null) {
+                monitor = application.getMonitor();
+            }
+        }
+        if (ref instanceof GenericService) {
+            interfaceClass = GenericService.class;
+            if (StringUtils.isEmpty(generic)) {
+                generic = Boolean.TRUE.toString();
+            }
+        } else {
+            try {
+                interfaceClass = Class.forName(interfaceName, true, Thread.currentThread()
+                        .getContextClassLoader());
+            } catch (ClassNotFoundException e) {
+                throw new IllegalStateException(e.getMessage(), e);
+            }
+            checkInterfaceAndMethods(interfaceClass, methods);
+            checkRef();
+            generic = Boolean.FALSE.toString();
+        }
+        if (local != null) {
+            if ("true".equals(local)) {
+                local = interfaceName + "Local";
+            }
+            Class<?> localClass;
+            try {
+                localClass = ClassHelper.forNameWithThreadContextClassLoader(local);
+            } catch (ClassNotFoundException e) {
+                throw new IllegalStateException(e.getMessage(), e);
+            }
+            if (!interfaceClass.isAssignableFrom(localClass)) {
+                throw new IllegalStateException("The local implementation class " + localClass.getName() + " not implement interface " + interfaceName);
+            }
+        }
+        if (stub != null) {
+            if ("true".equals(stub)) {
+                stub = interfaceName + "Stub";
+            }
+            Class<?> stubClass;
+            try {
+                stubClass = ClassHelper.forNameWithThreadContextClassLoader(stub);
+            } catch (ClassNotFoundException e) {
+                throw new IllegalStateException(e.getMessage(), e);
+            }
+            if (!interfaceClass.isAssignableFrom(stubClass)) {
+                throw new IllegalStateException("The stub implementation class " + stubClass.getName() + " not implement interface " + interfaceName);
+            }
+        }
+        checkApplication();
+        checkRegistry();
+        checkProtocol();
+        appendProperties(this);
+        checkStubAndMock(interfaceClass);
+        if (path == null || path.length() == 0) {
+            path = interfaceName;
+        }
+        doExportUrls();
+        ProviderModel providerModel = new ProviderModel(getUniqueServiceName(), this, ref);
+        ApplicationModel.initProviderModel(getUniqueServiceName(), providerModel);
     }
 
 ```

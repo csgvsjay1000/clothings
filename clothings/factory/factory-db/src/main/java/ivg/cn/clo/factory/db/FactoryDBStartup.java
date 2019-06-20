@@ -1,5 +1,7 @@
 package ivg.cn.clo.factory.db;
 
+import java.util.concurrent.ThreadPoolExecutor;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -13,5 +15,4 @@ public class FactoryDBStartup {
 //		Main.main(args);
 		SpringApplication.run(FactoryDBStartup.class, args);
 	}
-	
 }
